@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Index</title>
+		<link rel="stylesheet" href="/main.css">
+	</head>
+	<body>
+		Add a new post:
+		<form class="" action="/post" method="post">
+			<input type="textarea" name="newPost" value="" placeholder='postbody' autofocus>
+			<input type="submit" name="" value="Post">
+		</form>
+		<br>
+		{{#posts}}
+			<div class = 'post'>
+					{{userALIAS.displayname}}: {{body}}
+					<br>
+				<!-- <form class="" action="/like" method="post">
+					<input type="hidden" name="likebuttonid" value="{{id}}">
+					<input type="submit" name="likebutton" value="LIKE">
+				</form> -->
+				<form class="" action="/delete" method="post">
+					<input type="hidden" name="deletebuttonid" value="{{id}}">
+					<input type="submit" name="deletebutton" value="DELETE">
+				</form>
+			</div>
+		{{/posts}}
+	</body>
+</html>
