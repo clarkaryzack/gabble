@@ -5,8 +5,6 @@ const router = express.Router();
 const session = require('express-session');
 
 router.get('/', function(req, res){
-		console.log(req.session);
-		console.log(req.session.authenticated);
 		if (req.session && req.session.authenticated) {
 			models.post.findAll({
 				include: [{
@@ -21,7 +19,6 @@ router.get('/', function(req, res){
 		        return 1;
 		    }
 		    posts = posts.sort(compare);
-				console.log(posts)
 				res.render('index', {posts: posts})
 			})
 		} else {
@@ -43,9 +40,6 @@ router.post('/login', function(req, res){
 		    } else {
 		      return false;
 		    };
-	// .then(
-	// 	function(authenticatenow){
-	// 		console.log("I'm here.");
   if (req.session && req.session.authenticated){
 		req.session.userId = user.id;
 		console.log("redirecting to main")
@@ -122,13 +116,15 @@ router.post('/post', function (req, res){
 });
 
 router.post('/like', function (req, res){
-	console.log(req.body.likebuttonid)
+	console.log("liking now"),
+	console.log(req.body.likebuttonid);
 	const like = models.like.build({
-		userId: req.session.userId,
-		postId: req.body.likebuttonid
-	});
-	like.save();
-	res.redirect('/');
+		postId: req.body.likebuttonid,
+		userId: req.session.userId
+	})
+	like.save().then(function(likenow){
+		res.redirect('/');
+	})
 });
 
 router.post('/delete', function (req, res){

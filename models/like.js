@@ -9,16 +9,13 @@ module.exports = function(sequelize, DataTypes) {
   });
 
 	like.associate = function(models) {
-		like.belongsTo(models.post,{
-			as:'postALIAS',
-			foreignKey:'postId'
-		})
-	};
-
-	like.associate = function(models) {
 		like.belongsTo(models.user,{
 			as:'userALIAS',
 			foreignKey:'userId'
+		})
+		like.belongsTo(models.post,{
+			as:'postALIAS',
+			foreignKey:'postId'
 		})
 	};
 
